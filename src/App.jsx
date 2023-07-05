@@ -60,7 +60,7 @@ function App() {
       </Stack>
     </CardBody>
     <Divider color="#6C7A89"/>
-    <Grid templateColumns='repeat(5, 1fr)' gap={isSmallerThan640 ? `0` : `2`} >
+    <Grid templateColumns='repeat(5, 1fr)' gap={isSmallerThan640 ? `0` : `2`} height="3.5rem">
       <GridItem colSpan={1} display="flex" justifyContent="center" alignItems="center">
         {!isSmallerThan420 ? 
         <Text paddingLeft={isSmallerThan640 ? `1` : `5`} fontSize={isSmallerThan640 ? `xs` : `sm`} color="#6C7A89">{items.length} {items.length === 1 ? "item" : "items"} left</Text> 
