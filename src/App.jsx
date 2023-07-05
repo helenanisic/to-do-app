@@ -11,6 +11,7 @@ import {
   Divider,
   Grid,
   GridItem,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import Item from "./Item";
 import { useState } from "react";
@@ -45,7 +46,9 @@ function App() {
 
   const [pad, setPad] = useState(0);
   const [height, setHeight] = useState(100);
-
+  const [isSmallerThan800] = useMediaQuery('(max-width: 1024px)');
+  const [isSmallerThan640] = useMediaQuery('(max-width: 640px)');
+  const [isSmallerThan420] = useMediaQuery('(max-width: 420px)');
 
   const list = (<Stack h="50vh" transitionDelay="1s">
   <Card h="100%">
@@ -57,13 +60,19 @@ function App() {
       </Stack>
     </CardBody>
     <Divider color="#6C7A89"/>
-    <Grid templateColumns='repeat(5, 1fr)' gap={2} height="13%">
+    <Grid templateColumns='repeat(5, 1fr)' gap={isSmallerThan640 ? `0` : `2`} >
       <GridItem colSpan={1} display="flex" justifyContent="center" alignItems="center">
-        <Text paddingLeft={5} fontSize="sm" color="#6C7A89">{items.length} {items.length === 1 ? "item" : "items"} left</Text>
+        {!isSmallerThan420 ? 
+        <Text paddingLeft={isSmallerThan640 ? `1` : `5`} fontSize={isSmallerThan640 ? `xs` : `sm`} color="#6C7A89">{items.length} {items.length === 1 ? "item" : "items"} left</Text> 
+        :
+        <Text paddingLeft={isSmallerThan640 ? `1` : `5`} fontSize={isSmallerThan640 ? `xs` : `sm`} color="#6C7A89">{items.length} todo</Text>  
+      }
+        
       </GridItem>
       <GridItem colSpan={3} display="flex" justifyContent="center" alignItems="center">
       <Flex >
-        <Button
+        <Button 
+        size={isSmallerThan640 ? `xs` : `md`}
         padding={1}
           variant="ghost"
           border="none"
@@ -83,6 +92,7 @@ function App() {
           All
         </Button>
         <Button
+        size={isSmallerThan640 ? `xs` : `md`}
         padding={1}
         border="none"
           variant="ghost"
@@ -106,6 +116,7 @@ function App() {
           Active
         </Button>
         <Button
+        size={isSmallerThan640 ? `xs` : `md`}
         padding={1}
         border="none"
           variant="ghost"
@@ -133,10 +144,10 @@ function App() {
       </GridItem>
       <GridItem colSpan={1} display="flex" justifyContent="center" alignItems="center" >
       <Button
-        
+        size={isSmallerThan640 ? `xs` : `md`}
         variant="ghost"
         padding={1}
-        paddingRight={5}
+        paddingRight={isSmallerThan640 ? `1` : `5`}
         onClick={() => {
           let newItems = items.filter((i) => i.state === "active");
           let newFilteredItems = filteredItems.filter(
@@ -170,14 +181,14 @@ function App() {
   const empty = (    <>
     <Box bg="white" w="100vw" h="100vh">
       <Box bg="#0D98BA" w="100vw" h={`${height}vh`} display="flex" alignItems="center" justifyContent="center" transition="height 1s ease-in-out">
-        <Box paddingTop={`${pad}%`} w="40%" margin="auto" h="30vh">
+        <Box paddingTop={`${pad}%`} w={isSmallerThan800 ? `80vw` : `50vw`} margin="auto" h="30vh">
           <Heading color="white" letterSpacing=".5rem" size="2xl">
             TODO
           </Heading>
           <Input       
             focusBorderColor="white"
             placeholder="Type here..."
-            w="100%"
+            w={isSmallerThan800 ? `80vw` : `50vw`}
             margin="5% 0%"
             size="lg"
             value={inputValue}
@@ -197,7 +208,7 @@ function App() {
                 ]);
 
                 setPad(5);
-                setHeight(30);
+                setHeight(35);
                 setInputValue("");
                 setFilteredItems([
                   ...items,
