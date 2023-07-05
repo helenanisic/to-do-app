@@ -59,7 +59,7 @@ function App() {
         ))}
       </Stack>
     </CardBody>
-    <Divider color="#6C7A89"/>
+    <Divider opacity="0.1"/>
     <Grid templateColumns='repeat(5, 1fr)' gap={isSmallerThan640 ? `0` : `2`} height="3.5rem">
       <GridItem colSpan={1} display="flex" justifyContent="center" alignItems="center">
         {!isSmallerThan420 ? 
